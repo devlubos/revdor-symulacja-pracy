@@ -480,7 +480,7 @@ rotation = -1.5708
 color = Color( 0.117647, 0.117647, 0.117647, 1 )
 
 [node name="GhostEnemy7" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 1, -1000 )
+position = Vector2( 0, -1000 )
 rotation = 3.14159
 color = Color( 0.384314, 0.984314, 0.647059, 1 )
 
