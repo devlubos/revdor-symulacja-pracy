@@ -31,8 +31,8 @@ func _ready():
 	stats.connect("no_health", self, "queue_free")
 	animationTree.active = true
 	animationState.start("Idle")
-
-func _process(delta):
+	
+func _physics_process(delta):
 	light.global_rotation = 0
 	apply_central_impulse(knockback)
 	knockback = Vector2.ZERO
