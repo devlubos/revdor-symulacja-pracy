@@ -83,9 +83,9 @@ func move_to_target():
 		angular_velocity = diff * 3
 
 func get_target_path(target_pos):
-	playerPos = target_pos
-	path = nav.get_simple_path(global_position, target_pos, true)
-
+	if playerDetectionZone.player_in_view():
+		playerPos = target_pos
+		path = nav.get_simple_path(global_position, target_pos, true)
 
 func _on_Hurtbox_area_entered(area):
 	audio.play()
@@ -99,7 +99,6 @@ func _on_Hurtbox_area_entered(area):
 	if state == STAY:
 		playerDetectionZone.player = 1
 		state = CHASE
-
 
 func _on_Stats_no_health():
 	died = true
