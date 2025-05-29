@@ -499,7 +499,6 @@ position = Vector2( 214, 221 )
 linear_damp = 25.56
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-visible = false
 remote_path = NodePath("../../Camera2D")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

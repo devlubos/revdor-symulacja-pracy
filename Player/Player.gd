@@ -26,6 +26,7 @@ onready var hurtbox = $Hurtbox
 onready var timer = $Timer
 onready var audio = $HitSoundPlayer
 onready var light = $Light2D
+onready var sprint = $Sprint
 
 func _ready():
 	stats.connect("no_health", self, "queue_free")
@@ -38,6 +39,7 @@ func _physics_process(delta):
 	knockback = Vector2.ZERO
 	
 	sprite.look_at(get_global_mouse_position())
+	check_sprint()
 	match state:
 		MOVE:
 			move_state(delta)
@@ -50,6 +52,13 @@ func _physics_process(delta):
 		GUNSHOT:
 			gun_shot_state(delta)
 
+func check_sprint():
+	if Input.is_action_just_pressed("ui_sprint"):
+		sprint.activate_sprint()
+	if Input.is_action_just_released("ui_sprint"):
+		sprint.deactivate_sprint()
+
+
 func move_state(delta):
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -57,7 +66,7 @@ func move_state(delta):
 	
 	if input_vector != Vector2.ZERO:
 		animationState.travel("walking")
-		apply_central_impulse(input_vector*90)
+		apply_central_impulse(input_vector*90 * _get_sprint_multiplier())
 	else:
 		animationState.travel("Idle")
 	
@@ -71,7 +80,7 @@ func move_gun_state(delta):
 	
 	if input_vector != Vector2.ZERO:
 		animationState.travel("gunWalk")
-		apply_central_impulse(input_vector*70)
+		apply_central_impulse(input_vector*70 * _get_sprint_multiplier())
 	else:
 		animationState.travel("gunIdle")
 	
@@ -80,7 +89,7 @@ func move_gun_state(delta):
 		
 	if Input.is_action_just_pressed("ui_shot") and (reload == false):
 		state = GUNSHOT
-	
+
 func gun_out_state(delta):
 	reload = true
 	timer.start(0.5)
@@ -112,7 +121,11 @@ func gun_shot_state(delta):
 	bullet.rotation = bullet.direction.angle()
 
 	state = MOVE_GUN
-	
+
+func _get_sprint_multiplier() -> float:
+	return float(sprint.get_stamina_status())*0.5 +1
+
+
 func _on_Timer_timeout():
 	reload = false
 
