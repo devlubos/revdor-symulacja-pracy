@@ -18,6 +18,9 @@ onready var exhausted_delay_timer: Timer = $ExhaustedDelayTimer
 onready var stamina_timer: Timer = $StaminaTimer
 onready var progress_bar = $ProgressBar
 
+onready var red_theme = preload("res://Themes/stamina_fg_red.tres")
+onready var yellow_theme = preload("res://Themes/stamina_fg_yellow.tres")
+
 func _ready():
 	progress_bar.max_value = stamina_max_value
 	stamina = stamina_max_value
@@ -45,9 +48,11 @@ func _process(delta):
 			pass
 	progress_bar.value = stamina
 	if progress_bar.value < stamina_max_value * 0.3:
-		progress_bar.tint_progress = Color(0.8,0,0)
+		#progress_bar.tint_progress = Color(0.8,0,0)
+		progress_bar.add_stylebox_override("fg",red_theme)
 	else:
-		progress_bar.tint_progress = Color(0.8,0.8,0)
+		progress_bar.add_stylebox_override("fg",yellow_theme)
+		#progress_bar.tint_progress = Color(0.8,0.8,0)
 
 func _change_stamina_value(delta_value: float):
 	stamina += delta_value

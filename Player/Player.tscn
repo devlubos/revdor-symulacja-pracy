@@ -354,7 +354,7 @@ light_mask = 1
 position = Vector2( 0, 20 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 0, -1 )
+position = Vector2( -5, -23 )
 texture = ExtResource( 4 )
 texture_scale = 0.5
 shadow_enabled = true
