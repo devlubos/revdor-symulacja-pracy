@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Stamina",
+"language": "GDScript",
+"path": "res://Player/Stamina.gd"
+} ]
+_global_script_class_icons={
+"Stamina": ""
+}
+
 [application]
 
 config/name="CatMan"

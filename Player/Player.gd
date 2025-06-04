@@ -26,7 +26,6 @@ onready var hurtbox = $Hurtbox
 onready var timer = $Timer
 onready var audio = $HitSoundPlayer
 onready var light = $Light2D
-onready var sprint = $Sprint
 
 func _ready():
 	stats.connect("no_health", self, "queue_free")
@@ -54,9 +53,9 @@ func _physics_process(delta):
 
 func check_sprint():
 	if Input.is_action_just_pressed("ui_sprint"):
-		sprint.activate_sprint()
+		PlayerStats.Stamina.activate_stamina()
 	if Input.is_action_just_released("ui_sprint"):
-		sprint.deactivate_sprint()
+		PlayerStats.Stamina.deactivate_stamina()
 
 
 func move_state(delta):
@@ -123,8 +122,7 @@ func gun_shot_state(delta):
 	state = MOVE_GUN
 
 func _get_sprint_multiplier() -> float:
-	return float(sprint.get_stamina_status())*0.5 +1
-
+	return float(PlayerStats.Stamina.get_stamina_status())*0.5 +1
 
 func _on_Timer_timeout():
 	reload = false
