@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/TileSet.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://elements/Camera2D.tscn" type="PackedScene" id=13]
 [ext_resource path="res://MusicAndSounds/an-evil-wynd-by-tim-kulig-from-filmmusic-io.mp3" type="AudioStream" id=14]
 [ext_resource path="res://WorldEvents/WinArea.tscn" type="PackedScene" id=15]
+[ext_resource path="res://UI/StaminaUI.tscn" type="PackedScene" id=16]
 
 [sub_resource type="OccluderPolygon2D" id=12]
 polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -499,8 +500,11 @@ position = Vector2( 214, 221 )
 linear_damp = 25.56
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-visible = false
 remote_path = NodePath("../../Camera2D")
+
+[node name="RemoteTStamina" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../StaminaLayer/Stamina2DPosition")
+update_rotation = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -516,7 +520,20 @@ margin_top = 328.0
 margin_right = 536.0
 margin_bottom = 347.0
 
+[node name="StaminaLayer" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
+[node name="Stamina2DPosition" type="Node2D" parent="StaminaLayer"]
+position = Vector2( 214, 221 )
+
+[node name="StaminaUI" parent="StaminaLayer/Stamina2DPosition" instance=ExtResource( 16 )]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = 20.0
+margin_bottom = 25.0
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+light_mask = 0
 color = Color( 0, 0, 0, 1 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
