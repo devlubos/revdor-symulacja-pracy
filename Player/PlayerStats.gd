@@ -9,6 +9,7 @@ onready var gun_status = false setget set_gun_status
 onready var HealthSound = $HealthSound
 onready var AmmoSound = $AmmoSound
 onready var KeySound = $KeySound
+onready var Stamina = $Stamina
 var key = false setget set_key
 var gameover = load("res://UI/GameOverScreen.tscn")
 
