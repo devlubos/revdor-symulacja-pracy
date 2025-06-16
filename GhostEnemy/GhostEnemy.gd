@@ -1,6 +1,6 @@
-extends KinematicBody2D
+extends RigidBody2D
 
-export var speed = 100
+export var speed = 2
 export var color = Color(255, 255, 255)
 
 enum {
@@ -37,7 +37,7 @@ func _ready():
 	yield(owner, "ready")
 	nav = owner.nav
 	MusicPlayer.connect("stop_music", self, "check_detection_for_music")
-	
+
 func _physics_process(delta):
 	if died:
 			return
@@ -52,25 +52,24 @@ func _physics_process(delta):
 			var player = playerDetectionZone.player
 			if player != null:
 				move_enemy()
-		
+
 func seek_player():
 	if playerDetectionZone.player_in_view():
 		MusicPlayer.playChaseMusic()
 		state = CHASE 
-	
+
 func move_enemy():
 	if path.size() > 0:
 		animationPlayer.play("walk")
-		rotation = velocity.angle()
 		eye.look_at(playerPos)
 		move_to_target()
 	else:
 		animationPlayer.play("idle")
-		
+
 func check_detection_for_music():
 	if playerDetectionZone.player_in_view() and not died:
 		MusicPlayer.keepPlayingMusic()
-		
+
 func move_to_target():
 	if global_position.distance_to(path[0]) < threshold:
 		path.remove(0)
@@ -79,13 +78,14 @@ func move_to_target():
 			state = STAY
 			return
 		var direction = global_position.direction_to(path[0])
-		velocity = direction * speed
-		velocity = move_and_slide(velocity)
-		
-func get_target_path(target_pos):
-	playerPos = target_pos
-	path = nav.get_simple_path(global_position, target_pos, true)
+		apply_central_impulse(direction.normalized() * speed)
+		var diff = wrapf(direction.angle() - rotation, -PI, PI)
+		angular_velocity = diff * 3
 
+func get_target_path(target_pos):
+	if playerDetectionZone.player_in_view():
+		playerPos = target_pos
+		path = nav.get_simple_path(global_position, target_pos, true)
 
 func _on_Hurtbox_area_entered(area):
 	audio.play()
@@ -99,7 +99,6 @@ func _on_Hurtbox_area_entered(area):
 	if state == STAY:
 		playerDetectionZone.player = 1
 		state = CHASE
-
 
 func _on_Stats_no_health():
 	died = true

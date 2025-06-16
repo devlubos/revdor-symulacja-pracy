@@ -43,42 +43,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Light2D:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Light2D:color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Light2D:texture_scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.5 ]
-}
 
 [sub_resource type="Animation" id=21]
 resource_name = "gunIdle"
@@ -199,42 +163,6 @@ tracks/1/keys = {
 } ],
 "times": PoolRealArray( 0.1 )
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("Light2D:energy")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 1.0, 1.0, 1.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Light2D:color")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.964706, 0.968627, 0.647059, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Light2D:texture_scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.5, 0.7, 0.5 ]
-}
 
 [sub_resource type="Animation" id=20]
 resource_name = "gunWalk"
@@ -349,9 +277,10 @@ states/gunShot/position = Vector2( 703, 326 )
 states/gunWalk/node = SubResource( 26 )
 states/gunWalk/position = Vector2( 537, 429 )
 states/walking/node = SubResource( 8 )
-states/walking/position = Vector2( 679, 108 )
+states/walking/position = Vector2( 681, 108 )
 transitions = [ "Idle", "walking", SubResource( 9 ), "walking", "Idle", SubResource( 10 ), "Idle", "gunOut", SubResource( 27 ), "gunIdle", "gunWalk", SubResource( 31 ), "gunWalk", "gunIn", SubResource( 32 ), "gunWalk", "gunShot", SubResource( 33 ), "gunIdle", "gunShot", SubResource( 34 ), "gunOut", "gunIdle", SubResource( 37 ), "gunIdle", "gunIn", SubResource( 38 ), "gunIn", "Idle", SubResource( 39 ), "gunShot", "gunWalk", SubResource( 40 ), "gunShot", "gunIdle", SubResource( 41 ), "gunWalk", "gunIdle", SubResource( 42 ) ]
-graph_offset = Vector2( 58, 244 )
+start_node = "Idle"
+graph_offset = Vector2( -21.373, 19 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=16]
 
@@ -414,7 +343,7 @@ one_shot = true
 one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 5 )
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
